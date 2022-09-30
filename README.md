@@ -2,6 +2,8 @@
 
 "Expense Tracker" merujuk ke sistem pencatatan pengeluaran, aplikasi ini akan menyimpan pemasukan dan pengeluaran user serta menampilkan total selisih antara keduanya.
 
+Demo Applikasi : <https://mini-expense-tracker.netlify.app/>
+
 Cara menjalankan app mini-expense-tracker di server lokal :
 
 - Clone repository
