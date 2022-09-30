@@ -1,0 +1,100 @@
+/* Agar container tidak terlalu lebar */
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1140px !important;
+  }
+}
+
+table {
+  table-layout: fixed;
+}
+
+td {
+  vertical-align: middle;
+}
+
+small {
+  display: block;
+  color: red;
+}
+
+header {
+  clip-path: ellipse(85% 100% at 27% -5%);
+}
+
+#saldo-box {
+  width: 40%;
+  margin-top: -80px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#saldo-box .mini-saldo-in,
+#saldo-box .mini-saldo-out {
+  /* width: 200px; */
+  height: 70px;
+}
+
+#saldo-box .mini-saldo-in {
+  border-bottom-left-radius: 10px;
+}
+
+#saldo-box .mini-saldo-out {
+  border-bottom-right-radius: 10px;
+}
+
+#transaksi #list-pemasukan .card {
+  border-left: 5px solid green;
+  height: 75px;
+}
+
+#transaksi #list-pengeluaran .card {
+  border-left: 5px solid red;
+  height: 75px;
+}
+
+#transaksi .card span {
+  opacity: 0;
+  /* display: none; */
+}
+
+#transaksi .card:hover span {
+  /* display: block; */
+  opacity: 1;
+  transition: all 0.5s ease-in-out;
+  cursor: pointer;
+}
+
+/* Syle untuk smartphone */
+@media (max-width: 750px) {
+  header {
+    clip-path: ellipse(120% 100% at 27% -5%);
+  }
+
+  #saldo-box {
+    width: 80%;
+    margin-top: -80px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  #transaksi h5 {
+    width: 50%;
+    font-size: 1em;
+  }
+  #transaksi p {
+    font-size: 0.8em;
+  }
+  #transaksi #list-pemasukan .card {
+    border-left: 5px solid green;
+    height: 90px;
+  }
+  #transaksi #list-pengeluaran .card {
+    border-left: 5px solid red;
+    height: 90px;
+  }
+  #transaksi .card span {
+    opacity: 75%;
+    /* display: none; */
+  }
+}
