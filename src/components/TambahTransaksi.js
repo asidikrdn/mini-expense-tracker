@@ -1,12 +1,15 @@
 import { useState } from "react";
 
+let tanggal = new Date().getDate();
+tanggal = tanggal.toString().length > 1 ? tanggal : "0" + tanggal;
+let bulan = new Date().getMonth() + 1;
+bulan = bulan.toString().length > 1 ? bulan : "0" + bulan;
+let tahun = new Date().getFullYear();
+const tanggalHariIni = `${tahun}-${bulan}-${tanggal}`;
+
 const TambahTransaksi = (props) => {
   const [inputTransaksi, setInputTransaksi] = useState({
-    tanggal: `${new Date().getFullYear()}-${
-      new Date().getMonth().length > 1
-        ? new Date().getMonth() + 1
-        : "0" + (new Date().getMonth() + 1)
-    }-${new Date().getDate()}`,
+    tanggal: tanggalHariIni,
     keterangan: "",
     nominal: "",
   });
@@ -121,11 +124,7 @@ const TambahTransaksi = (props) => {
       props.onTambahTransaksi(transaksi);
 
       setInputTransaksi({
-        tanggal: `${new Date().getFullYear()}-${
-          new Date().getMonth().length > 1
-            ? new Date().getMonth() + 1
-            : "0" + (new Date().getMonth() + 1)
-        }-${new Date().getDate()}`,
+        tanggal: tanggalHariIni,
         keterangan: "",
         nominal: "",
       });
@@ -195,7 +194,7 @@ const TambahTransaksi = (props) => {
               </label>
               <input
                 type="text"
-                inputmode="numeric"
+                inputMode="numeric"
                 name="nominal"
                 id="nominal"
                 className={
