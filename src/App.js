@@ -34,13 +34,13 @@ const arrTransaksi = [
     keterangan: "Beli Laptop",
     nominal: -9900000,
   },
-  {
-    id: "trx5",
-    tipe: "out",
-    tanggal: "25 Agu 2022",
-    keterangan: "Beli Ebook React Uncover",
-    nominal: -70000,
-  },
+  // {
+  //   id: "trx5",
+  //   tipe: "out",
+  //   tanggal: "25 Agu 2022",
+  //   keterangan: "Beli Ebook React Uncover",
+  //   nominal: -70000,
+  // },
 ];
 
 const App = () => {

@@ -1,7 +1,11 @@
 import Pemasukan from "./Pemasukan";
 import Pengeluaran from "./Pengeluaran";
+import { useSelector } from "react-redux";
 
 const Transaksi = (props) => {
+  // Mengambil state dari store dengan useSelector Hook
+  const transaksi = useSelector((state) => state.expenseReducer.transaksi);
+
   return (
     <section id="transaksi">
       <div className="container-fluid p-0">
@@ -10,7 +14,7 @@ const Transaksi = (props) => {
             <h3 className="text-center">Pemasukan</h3>
             <hr className="w-75 mx-auto" />
             <div id="list-pemasukan">
-              {props.transaksi.map((data) => {
+              {transaksi.map((data) => {
                 let trx;
                 if (data.tipe === "in") {
                   trx = (
@@ -29,7 +33,7 @@ const Transaksi = (props) => {
             <h3 className="text-center">Pengeluaran</h3>
             <hr className="w-75 mx-auto" />
             <div id="list-pengeluaran">
-              {props.transaksi.map((data) => {
+              {transaksi.map((data) => {
                 let trx;
                 if (data.tipe === "out") {
                   trx = (
