@@ -43,6 +43,18 @@ const initialState = {
 const expenseReducer = (state = initialState, action) => {
   const { type, payload } = action;
   switch (type) {
+    // Menambahkan case ADD untuk manipulasi state
+    case "ADD":
+      return {
+        ...state,
+        transaksi: [...state.transaksi, payload],
+      };
+    // Menambahkan case DEL untuk manipulasi state
+    case "DEL":
+      return {
+        ...state,
+        transaksi: state.transaksi.filter((trx) => trx.id !== payload),
+      };
     default:
       return {
         ...state,

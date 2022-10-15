@@ -1,10 +1,13 @@
 import Pemasukan from "./Pemasukan";
 import Pengeluaran from "./Pengeluaran";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { delTransaction } from "../store/actions/expenseAction";
 
-const Transaksi = (props) => {
+const Transaksi = () => {
   // Mengambil state dari store dengan useSelector Hook
   const transaksi = useSelector((state) => state.expenseReducer.transaksi);
+
+  const dispatch = useDispatch();
 
   return (
     <section id="transaksi">
@@ -19,7 +22,10 @@ const Transaksi = (props) => {
                 if (data.tipe === "in") {
                   trx = (
                     <Pemasukan
-                      hapusTransaksi={props.onHapusTransaksi}
+                      // Menghapus transaksi dengan event delTransaction dan menggunakan useDispatch Hook
+                      hapusTransaksi={() => {
+                        dispatch(delTransaction(data.id));
+                      }}
                       key={data.id}
                       item={data}
                     />
@@ -38,7 +44,10 @@ const Transaksi = (props) => {
                 if (data.tipe === "out") {
                   trx = (
                     <Pengeluaran
-                      hapusTransaksi={props.onHapusTransaksi}
+                      // Menghapus transaksi dengan event delTransaction dan menggunakan useDispatch Hook
+                      hapusTransaksi={() => {
+                        dispatch(delTransaction(data.id));
+                      }}
                       key={data.id}
                       item={data}
                     />

@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { addTransaction } from "../store/actions/expenseAction";
 
 let tanggal = new Date().getDate();
 tanggal = tanggal.toString().length > 1 ? tanggal : "0" + tanggal;
@@ -7,7 +9,11 @@ bulan = bulan.toString().length > 1 ? bulan : "0" + bulan;
 let tahun = new Date().getFullYear();
 const tanggalHariIni = `${tahun}-${bulan}-${tanggal}`;
 
-const TambahTransaksi = (props) => {
+const TambahTransaksi = () => {
+  const dispatch = useDispatch();
+  // Mengambil nilai state transaksi
+  const trx = useSelector((state) => state.expenseReducer.transaksi);
+
   const [inputTransaksi, setInputTransaksi] = useState({
     tanggal: tanggalHariIni,
     keterangan: "",
@@ -120,8 +126,36 @@ const TambahTransaksi = (props) => {
     }
     // console.log(formValidation);
 
+    // Fungsi untuk menambahkan/membuat id
+    const getNewId = (data, kodeId) => {
+      // console.log(data);
+
+      let lastId, newId;
+
+      if (!kodeId) {
+        // Jika format id langsung berbentuk angka
+        data.length > 0 ? (lastId = data.slice(-1)[0].id) : (lastId = "0");
+        newId = `${parseInt(lastId) + 1}`;
+      } else {
+        // Jika ada tambahan kode/huruf di depan angka
+        data.length > 0
+          ? (lastId = data.slice(-1)[0].id)
+          : (lastId = `${kodeId}0`);
+        newId = `${lastId.slice(0, kodeId.length)}${
+          parseInt(lastId.slice(kodeId.length)) + 1
+        }`;
+      }
+
+      // console.log(newId);
+      return newId;
+    };
+
+    // Menambahkan id pada transaksi baru berdasarkan id terakhir dari state transaksi
+    transaksi.id = getNewId(trx, "trx");
+
     if (formValidation) {
-      props.onTambahTransaksi(transaksi);
+      // Menambahkan transaksi baru dengan event addTransaction dan menggunakan useDispatch Hook
+      dispatch(addTransaction(transaksi));
 
       setInputTransaksi({
         tanggal: tanggalHariIni,
