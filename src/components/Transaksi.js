@@ -1,7 +1,14 @@
 import Pemasukan from "./Pemasukan";
 import Pengeluaran from "./Pengeluaran";
+import { useSelector, useDispatch } from "react-redux";
+import { delTransaction } from "../store/actions/expenseAction";
 
-const Transaksi = (props) => {
+const Transaksi = () => {
+  // Mengambil state dari store dengan useSelector Hook
+  const transaksi = useSelector((state) => state.expenseReducer.transaksi);
+
+  const dispatch = useDispatch();
+
   return (
     <section id="transaksi">
       <div className="container-fluid p-0">
@@ -10,12 +17,15 @@ const Transaksi = (props) => {
             <h3 className="text-center">Pemasukan</h3>
             <hr className="w-75 mx-auto" />
             <div id="list-pemasukan">
-              {props.transaksi.map((data) => {
+              {transaksi.map((data) => {
                 let trx;
                 if (data.tipe === "in") {
                   trx = (
                     <Pemasukan
-                      hapusTransaksi={props.onHapusTransaksi}
+                      // Menghapus transaksi dengan event delTransaction dan menggunakan useDispatch Hook
+                      hapusTransaksi={() => {
+                        dispatch(delTransaction(data.id));
+                      }}
                       key={data.id}
                       item={data}
                     />
@@ -29,12 +39,15 @@ const Transaksi = (props) => {
             <h3 className="text-center">Pengeluaran</h3>
             <hr className="w-75 mx-auto" />
             <div id="list-pengeluaran">
-              {props.transaksi.map((data) => {
+              {transaksi.map((data) => {
                 let trx;
                 if (data.tipe === "out") {
                   trx = (
                     <Pengeluaran
-                      hapusTransaksi={props.onHapusTransaksi}
+                      // Menghapus transaksi dengan event delTransaction dan menggunakan useDispatch Hook
+                      hapusTransaksi={() => {
+                        dispatch(delTransaction(data.id));
+                      }}
                       key={data.id}
                       item={data}
                     />
