@@ -1,7 +1,7 @@
 // Membuat action untuk menambahkan transaksi
 export const addTransaction = (trx) => {
   return {
-    type: "ADD",
+    type: "transaction/ADD",
     payload: trx,
   };
 };
@@ -9,7 +9,7 @@ export const addTransaction = (trx) => {
 // Membuat action untuk menghapus transaksi
 export const delTransaction = (trx) => {
   return {
-    type: "DEL",
+    type: "transaction/DEL",
     payload: trx,
   };
 };

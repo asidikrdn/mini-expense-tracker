@@ -1,13 +1,35 @@
 import Pemasukan from "./Pemasukan";
 import Pengeluaran from "./Pengeluaran";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { delTransaction } from "../store/actions/expenseAction";
+import { delTransaction } from "../store/actions/transactionAction";
+import { updateSaldo } from "../store/actions/saldoAction";
 
 const Transaksi = () => {
   // Mengambil state dari store dengan useSelector Hook
-  const transaksi = useSelector((state) => state.expenseReducer.transaksi);
+  const transaksi = useSelector((state) => state.transactionReducer.transaksi);
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    let totalPemasukan = transaksi
+      .filter((el) => el.tipe === "in")
+      .reduce((total, current) => total + current.nominal, 0);
+    let totalPengeluaran = transaksi
+      .filter((el) => el.tipe === "out")
+      .reduce((total, current) => total + current.nominal, 0);
+
+    let newSaldo = {
+      saldo: totalPemasukan + totalPengeluaran,
+      pemasukan: totalPemasukan,
+      pengeluaran: totalPengeluaran,
+    };
+    // console.log(newSaldo);
+
+    dispatch(updateSaldo(newSaldo));
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [transaksi]);
 
   return (
     <section id="transaksi">
