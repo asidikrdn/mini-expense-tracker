@@ -1,6 +1,12 @@
 // Menggabungkan beberapa reducer menjadi satu
 import { combineReducers } from "redux";
-import expenseReducer from "./expenseReducer";
+import transactionReducer from "./transactionReducer";
+import saldoReducer from "./saldoReducer";
+import inputReducer from "./inputReducer";
 
-// Untuk sementara, kita baru memiliki 1 reducer, yaitu expenseReducer
-export default combineReducers({ expenseReducer });
+// Untuk sementara, kita baru memiliki 1 reducer, yaitu transactionReducer
+export default combineReducers({
+  transactionReducer,
+  saldoReducer,
+  inputReducer,
+});

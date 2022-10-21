@@ -1,32 +1,24 @@
-import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { addTransaction } from "../store/actions/expenseAction";
-
-let tanggal = new Date().getDate();
-tanggal = tanggal.toString().length > 1 ? tanggal : "0" + tanggal;
-let bulan = new Date().getMonth() + 1;
-bulan = bulan.toString().length > 1 ? bulan : "0" + bulan;
-let tahun = new Date().getFullYear();
-const tanggalHariIni = `${tahun}-${bulan}-${tanggal}`;
+import { addTransaction } from "../store/actions/transactionAction";
+import {
+  updateInput,
+  resetInput,
+  updateErrors,
+} from "../store/actions/inputAction";
 
 const TambahTransaksi = () => {
   const dispatch = useDispatch();
   // Mengambil nilai state transaksi
-  const trx = useSelector((state) => state.expenseReducer.transaksi);
-
-  const [inputTransaksi, setInputTransaksi] = useState({
-    tanggal: tanggalHariIni,
-    keterangan: "",
-    nominal: "",
-  });
-  const [errors, setErrors] = useState({
-    tanggal: "",
-    keterangan: "",
-    nominal: "",
-  });
+  const trx = useSelector((state) => state.transactionReducer.transaksi);
+  const inputTransaksi = useSelector(
+    (state) => state.inputReducer.inputTransaksi
+  );
+  const errors = useSelector((state) => state.inputReducer.errors);
 
   const handleInputChange = (e) => {
-    setInputTransaksi({ ...inputTransaksi, [e.target.name]: e.target.value });
+    dispatch(
+      updateInput({ ...inputTransaksi, [e.target.name]: e.target.value })
+    );
   };
 
   const handleFormSubmit = (e) => {
@@ -118,7 +110,7 @@ const TambahTransaksi = () => {
     transaksi.nominal > 0 ? (transaksi.tipe = "in") : (transaksi.tipe = "out");
 
     // console.log(pesanError);
-    setErrors(pesanError);
+    dispatch(updateErrors(pesanError));
 
     let formValidation = true;
     for (let errorName in pesanError) {
@@ -156,12 +148,9 @@ const TambahTransaksi = () => {
     if (formValidation) {
       // Menambahkan transaksi baru dengan event addTransaction dan menggunakan useDispatch Hook
       dispatch(addTransaction(transaksi));
-
-      setInputTransaksi({
-        tanggal: tanggalHariIni,
-        keterangan: "",
-        nominal: "",
-      });
+      
+      // Mereset inputForm
+      dispatch(resetInput());
     }
   };
 
