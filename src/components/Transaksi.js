@@ -1,15 +1,16 @@
 import Pemasukan from "./Pemasukan";
 import Pengeluaran from "./Pengeluaran";
-import { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useContext, useEffect } from "react";
+import { Context } from "../store/Store";
 import { delTransaction } from "../store/actions/transactionAction";
 import { updateSaldo } from "../store/actions/saldoAction";
 
 const Transaksi = () => {
   // Mengambil state dari store dengan useSelector Hook
-  const transaksi = useSelector((state) => state.transactionReducer.transaksi);
+  const { transaction, dispatchTransaction, dispatchSaldo } =
+    useContext(Context);
 
-  const dispatch = useDispatch();
+  const transaksi = transaction.transaksi;
 
   useEffect(() => {
     let totalPemasukan = transaksi
@@ -26,7 +27,7 @@ const Transaksi = () => {
     };
     // console.log(newSaldo);
 
-    dispatch(updateSaldo(newSaldo));
+    dispatchSaldo(updateSaldo(newSaldo));
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [transaksi]);
@@ -46,7 +47,7 @@ const Transaksi = () => {
                     <Pemasukan
                       // Menghapus transaksi dengan event delTransaction dan menggunakan useDispatch Hook
                       hapusTransaksi={() => {
-                        dispatch(delTransaction(data.id));
+                        dispatchTransaction(delTransaction(data.id));
                       }}
                       key={data.id}
                       item={data}
@@ -68,7 +69,7 @@ const Transaksi = () => {
                     <Pengeluaran
                       // Menghapus transaksi dengan event delTransaction dan menggunakan useDispatch Hook
                       hapusTransaksi={() => {
-                        dispatch(delTransaction(data.id));
+                        dispatchTransaction(delTransaction(data.id));
                       }}
                       key={data.id}
                       item={data}
