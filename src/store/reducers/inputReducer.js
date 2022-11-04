@@ -5,7 +5,7 @@ bulan = bulan.toString().length > 1 ? bulan : "0" + bulan;
 let tahun = new Date().getFullYear();
 const tanggalHariIni = `${tahun}-${bulan}-${tanggal}`;
 
-export const initialInputState = {
+export const initialState = {
   inputTransaksi: {
     tanggal: tanggalHariIni,
     keterangan: "",
@@ -19,7 +19,7 @@ export const initialInputState = {
 };
 
 // Membuat reducer untuk expense tracker
-export const inputReducer = (state = initialInputState, action) => {
+export const inputReducer = (state = initialState, action) => {
   const { type, payload } = action;
   switch (type) {
     // Menambahkan case Update untuk manipulasi state
@@ -31,7 +31,7 @@ export const inputReducer = (state = initialInputState, action) => {
     case "input/RESET":
       return {
         ...state,
-        inputTransaksi: { ...initialInputState.inputTransaksi },
+        inputTransaksi: { ...initialState.inputTransaksi },
       };
     case "errors/UPDATE":
       return {

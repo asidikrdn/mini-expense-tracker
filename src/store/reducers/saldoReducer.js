@@ -1,12 +1,12 @@
 // Membuat nilai awal state
-export const initialSaldoState = {
+export const initialState = {
   saldo: 0,
   pemasukan: 0,
   pengeluaran: 0,
 };
 
 // Membuat reducer untuk expense tracker
-export const saldoReducer = (state = initialSaldoState, action) => {
+export const saldoReducer = (state = initialState, action) => {
   const { type, payload } = action;
   switch (type) {
     // Menambahkan case Update untuk manipulasi state
