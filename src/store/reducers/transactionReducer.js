@@ -1,5 +1,5 @@
 // Membuat nilai awal state
-const initialState = {
+export const initialState = {
   transaksi: [
     {
       id: "trx1",
@@ -40,7 +40,7 @@ const initialState = {
 };
 
 // Membuat reducer untuk expense tracker
-const transactionReducer = (state = initialState, action) => {
+export const transactionReducer = (state = initialState, action) => {
   const { type, payload } = action;
   switch (type) {
     // Menambahkan case ADD untuk manipulasi state
@@ -61,5 +61,3 @@ const transactionReducer = (state = initialState, action) => {
       };
   }
 };
-
-export default transactionReducer;

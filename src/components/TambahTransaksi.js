@@ -1,4 +1,5 @@
-import { useSelector, useDispatch } from "react-redux";
+import { useContext } from "react";
+import { Context } from "../store/Store";
 import { addTransaction } from "../store/actions/transactionAction";
 import {
   updateInput,
@@ -7,16 +8,16 @@ import {
 } from "../store/actions/inputAction";
 
 const TambahTransaksi = () => {
-  const dispatch = useDispatch();
+  const { input, dispatchInput, transaction, dispatchTransaction } =
+    useContext(Context);
+
   // Mengambil nilai state transaksi
-  const trx = useSelector((state) => state.transactionReducer.transaksi);
-  const inputTransaksi = useSelector(
-    (state) => state.inputReducer.inputTransaksi
-  );
-  const errors = useSelector((state) => state.inputReducer.errors);
+  const trx = transaction.transaksi;
+  const inputTransaksi = input.inputTransaksi;
+  const errors = input.errors;
 
   const handleInputChange = (e) => {
-    dispatch(
+    dispatchInput(
       updateInput({ ...inputTransaksi, [e.target.name]: e.target.value })
     );
   };
@@ -110,7 +111,7 @@ const TambahTransaksi = () => {
     transaksi.nominal > 0 ? (transaksi.tipe = "in") : (transaksi.tipe = "out");
 
     // console.log(pesanError);
-    dispatch(updateErrors(pesanError));
+    dispatchInput(updateErrors(pesanError));
 
     let formValidation = true;
     for (let errorName in pesanError) {
@@ -147,10 +148,10 @@ const TambahTransaksi = () => {
 
     if (formValidation) {
       // Menambahkan transaksi baru dengan event addTransaction dan menggunakan useDispatch Hook
-      dispatch(addTransaction(transaksi));
-      
+      dispatchTransaction(addTransaction(transaksi));
+
       // Mereset inputForm
-      dispatch(resetInput());
+      dispatchInput(resetInput());
     }
   };
 
